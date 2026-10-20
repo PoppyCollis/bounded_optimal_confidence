@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bounded-optimal-confidence"
+version = "0.1.0"
+description = "Bounded-optimal attention and confidence: model fits to the Li & Ma (2020) human confidence data"
+readme = "README.md"
+requires-python = ">=3.14"
+authors = [{ name = "Poppy Collis", email = "poppy.collis@gmail.com" }]
+# Pinned to the versions the paper's fits were run with: the fits are Monte Carlo with fixed seeds, so the numbers are
+# reproduced exactly only on the same numpy (random streams) and scipy (optimiser).
+dependencies = [
+    "numpy==2.5.1",
+    "scipy==1.18.0",
+    "pandas==3.0.5",
+    "threadpoolctl==3.6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.1.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: re-scores the paper's fits (minutes, uses worker processes); run with -m slow"]
+addopts = "-m 'not slow'"
