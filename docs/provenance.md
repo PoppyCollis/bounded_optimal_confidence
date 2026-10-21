@@ -46,6 +46,13 @@ The repertoires were renamed as well: `top2` → `sym_top2`, `sym` → `sym_spec
 | `fitting/fit.py` | `fit_alpha_pooled.main` (shortlist, clean, best) |
 | `fitting/report.py` | `fit_alpha_argmax_cfg1.edge_flags`, `fit_alpha_pooled.beta_lines` |
 | `utils/parallel.py` | `utils/parallel.py` |
+| `stats/bms.py` | `paper_plots/fig_pooled_bms.fit` / `bms`, `pooled_bms_family.readout` / `family_prior`, and the `groupBMC` package's VB fit and exceedance probability, written out |
+| `stats/bootstrap.py` | `paper_plots/bootstrap_ci.py` |
+| `stats/paired.py` | new: the paired t-tests were ad hoc (recorded in `memory.md`) |
+| `stats/tables.py` | `fig_pooled_bms.summary`, `pooled_bms_family.main`, `fig_pooled_aic.summary` (the bootstrap column) |
+| `plotting/style.py` | `paper_plots/fig_likelihood_confidence.py` (palette, sizes, rcParams) |
+| `plotting/model_bars.py` | `fig_pooled_aic.bar_figure` (the layout, legends) |
+| `plotting/bms_figures.py` | `fig_pooled_bms.table_figure` / `bar_figure` |
 
 ## Not carried over
 
@@ -57,3 +64,10 @@ with a per-config choice (chirality, `ci_pick`); `--polish-all`; the hand-placed
 
 `results/paper_fits/<model>/` holds the original runs' `fit_results.csv`, `clean.csv`, `report.md` and
 `config_log.txt`, copied unchanged. `results/paper_fits/README.md` maps each one to its original folder and commit.
+
+## Statistics
+
+The Bayesian model selection and the bootstrap give the same numbers as the old `paper_plots` scripts on the same
+input, to the last bit; the old scripts' default CSV float parsing differs from the stored values by one ulp on
+some AICs, which moves the results by less than 1e-12. `docs/statistics.md` has the details, and the comparison
+with the old notes' paired t-tests.

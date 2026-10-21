@@ -11,7 +11,9 @@ an argmax decision and a confidence readout. They differ in what happens to the 
   The four repertoires are Sym Top-2, Sym Spec, Asym-L and Asym-R. Each is fitted with **hard** attention (the
   maximum-evidence mask, β = ∞) and with **soft** attention (β fitted).
 
-[docs/models.md](docs/models.md) gives the models in full, and [docs/fitting.md](docs/fitting.md) describes the fit.
+[docs/models.md](docs/models.md) gives the models in full, [docs/fitting.md](docs/fitting.md) describes the fit, and
+[docs/statistics.md](docs/statistics.md) the group-level comparison of the fitted models (Bayesian model selection
+and paired tests).
 
 ## Install
 
@@ -31,7 +33,10 @@ so they come back bit for bit only on the same numpy and scipy.
 | `python scripts/fit_all_models.py` | fit all ten (about 10 h) |
 | `python scripts/summarise_fits.py [--paper]` | summed NLL / AIC, ΔAIC to Diff, nested-model search checks |
 | `python scripts/check_paper_fits.py` | re-score the paper's fits and confirm they are reproduced exactly (about 7 min) |
-| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits |
+| `python scripts/bayesian_model_selection.py [--paper]` | random-effects BMS: frequencies, exceedance probabilities, BOR; Diff vs the Sym Top-2 family |
+| `python scripts/paired_tests.py [--paper]` | every model vs Diff on per-subject AIC: t-test, Wilcoxon, bootstrap CI of ΔAIC |
+| `python scripts/plot_bms.py [--paper]` | the BMS table and PXP bar figures → `figures/<paper|runs|smoke>/` |
+| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures |
 
 The model names are `diff`, `ent`, `sym_top2_hard`, `sym_spec_hard`, `asym_spec_l_hard`, `asym_spec_r_hard`,
 `sym_top2_soft`, `sym_spec_soft`, `asym_spec_l_soft` and `asym_spec_r_soft`. Scripts use 14 worker processes by
@@ -46,13 +51,16 @@ default; change it with `--n-workers`.
         likelihood/         scoring (p(decision, level), clean NLL), profile (boundaries and lapse minimised out)
         fitting/            settings (grids), seeding (random streams), tasks (worker jobs), search, fit, report
         runs.py             reading fit results
+        stats/              bms (Bayesian model selection), paired (t-test, Wilcoxon), bootstrap, tables
+        plotting/           style, model_bars (the shared bar layout), bms_figures
         utils/              worker pool, git provenance
     scripts/                the runnable entry points above
     tests/
     data/li_ma_2020/        the experiment 1 data, with its README
     results/paper_fits/     the fits reported in the paper, one folder per model (README: provenance)
     results/fits/           new runs
-    docs/                   models, fitting, provenance (how this maps to the original ITBR_confidence code)
+    figures/paper/          figures drawn from the paper's fits (figures/runs and figures/smoke: from new runs)
+    docs/                   models, fitting, statistics, provenance (how this maps to the original ITBR_confidence code)
 
 ## The paper's fits
 
@@ -68,6 +76,11 @@ default; change it with `--n-workers`.
 | Sym Spec (soft) | 7 | 6473.4 | 13128.9 | +1412.9 |
 | Asym-L (soft) | 7 | 6513.7 | 13209.4 | +1493.4 |
 | Asym-R (soft) | 7 | 6517.6 | 13217.1 | +1501.2 |
+
+Bayesian model selection over the ten (protected exceedance probability): Diff 0.47, Sym Top-2 (soft) 0.51, every
+other model ≤ 0.006, omnibus risk 0.0015. Neither Sym Top-2 model differs from Diff on a paired t-test of the
+per-subject AIC (hard: t(12) = 1.19, p = 0.26; soft: t(12) = −0.90, p = 0.39); every other model is worse,
+p < 0.001. See [docs/statistics.md](docs/statistics.md).
 
 ## Data
 

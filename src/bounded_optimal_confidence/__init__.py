@@ -4,4 +4,7 @@
     models        the ten decision models and their simulator
     likelihood    scoring a simulation against a subject's reports; profiling the boundaries and lapse
     fitting       the pooled grid fit: search, clean re-score, report
+    runs          reading fit results (the paper's and new runs)
+    stats         Bayesian model selection, paired tests, bootstrap
+    plotting      the paper's figures
 """
