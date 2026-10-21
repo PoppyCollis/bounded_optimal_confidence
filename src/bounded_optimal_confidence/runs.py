@@ -40,3 +40,28 @@ def load_fits(paper=False, fits_dir=FITS_DIR, smoke=False, models=MODELS):
         if run is not None and (run / "fit_results.csv").exists():
             out[name] = (run, read_fit(run, name))
     return out
+
+
+# --- the scripts' common choice of which fits to read -------------------------------------------------------------
+
+def add_source_arguments(parser):
+    """--paper / --smoke; with neither, a script reads the newest run of each model in results/fits."""
+    g = parser.add_mutually_exclusive_group()
+    g.add_argument("--paper", action="store_true", help="the paper's fits (results/paper_fits)")
+    g.add_argument("--smoke", action="store_true", help="the newest smoke runs")
+
+
+def source_tag(args):
+    """'paper', 'smoke' or 'runs': names the figure folder a script writes to."""
+    return "paper" if args.paper else "smoke" if args.smoke else "runs"
+
+
+def fits_from_args(args, models=MODELS):
+    """The fits the arguments select, printed with their run folders. Exits if there are none."""
+    fits = load_fits(paper=args.paper, smoke=args.smoke, models=models)
+    if not fits:
+        raise SystemExit("no fits found")
+    print("runs:")
+    for name, (run, _fit) in fits.items():
+        print(f"  {name:18s} {run}")
+    return fits

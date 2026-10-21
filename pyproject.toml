@@ -19,7 +19,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest==9.1.1"]
+dev = ["pytest==9.1.1", "groupBMC==1.0"]   # groupBMC: the reference implementation the BMS tests check against
 
 [tool.setuptools.packages.find]
 where = ["src"]

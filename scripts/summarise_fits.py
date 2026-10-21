@@ -13,7 +13,7 @@ up to Monte Carlo noise in the clean NLL; a subject more than TOL nats worse poi
 import argparse
 
 from bounded_optimal_confidence.models import MODELS
-from bounded_optimal_confidence.runs import load_fits
+from bounded_optimal_confidence.runs import add_source_arguments, fits_from_args
 
 REFERENCE = "diff"
 TOL = 1.0
@@ -29,15 +29,8 @@ def nested_in(name):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    p.add_argument("--paper", action="store_true", help="the paper's fits instead of the newest runs")
-    p.add_argument("--smoke", action="store_true", help="the newest smoke runs")
-    a = p.parse_args()
-    fits = load_fits(paper=a.paper, smoke=a.smoke)
-    if not fits:
-        raise SystemExit("no fits found")
-    print("runs:")
-    for name, (run, _fit) in fits.items():
-        print(f"  {name:18s} {run}")
+    add_source_arguments(p)
+    fits = fits_from_args(p.parse_args())
 
     ref = fits[REFERENCE][1].set_index("subject") if REFERENCE in fits else None
     print(f"\n{'model':18s} {'label':18s} {'k':>2s} {'n':>3s} {'NLL':>9s} {'AIC':>9s} {'dAIC vs Diff':>13s} "
