@@ -1,6 +1,6 @@
 """Check that this package reproduces the paper's fits: re-score every subject's best cell and compare.
 
-    python scripts/check_paper_fits.py                          # all models, all subjects (130 cells, a few minutes)
+    python scripts/check_paper_fits.py                          # all 130 cells, about 7 min on 14 workers
     python scripts/check_paper_fits.py --models diff --subjects 1
 
 For each model and subject, the stored best cell (sig_x, alpha[, beta]) of results/paper_fits/<model> goes through the
