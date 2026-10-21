@@ -36,6 +36,12 @@ class Model:
     def parameters(self):
         return ("b1", "b2", "b3", "lapse", "sig_x", "log10_alpha") + (("log10_beta",) if self.fits_beta else ())
 
+    @property
+    def short_label(self):
+        """The label without the attention kind (Sym Top-2, Asym-L, ...): the bar names of the figures, where colour
+        and opacity carry the rest."""
+        return _REPERTOIRE_LABEL[self.repertoire] if self.repertoire else self.label
+
 
 _REPERTOIRE_LABEL = {"sym_top2": "Sym Top-2", "sym_spec": "Sym Spec", "asym_spec_l": "Asym-L", "asym_spec_r": "Asym-R"}
 
