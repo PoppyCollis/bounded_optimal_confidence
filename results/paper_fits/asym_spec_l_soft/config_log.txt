@@ -1,0 +1,13 @@
+started    2026-10-06 03:05:32
+git commit 9433f5d-dirty
+model      entropy_ci_asym_left_beta_alpha_sigx_pooled, k 7
+exp 1, cfgs [1, 2, 3, 4] pooled (one parameter set), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+alpha      log10 [np.float64(0.0), np.float64(0.5), np.float64(1.0), np.float64(1.5), np.float64(2.0), np.float64(3.0), np.float64(inf)] then fine_alphas around the N_SEED best cells
+beta       log10 [np.float64(-1.0), np.float64(-0.5), np.float64(0.0), np.float64(0.5), np.float64(1.0), np.float64(1.5), np.float64(2.0), np.float64(inf)] then fine_log_beta_ci (+-0.25 step 0.125, lo -1.25, inf kept)
+picks      -
+b          -
+gamma      -
+chirality  -
+polish     -
+simntrl    rank 2500, refit 10000, clean 100000; refine 20
+finished   2026-10-06 04:38:00
