@@ -1,0 +1,129 @@
+generalisation rate-utility beta3 sweep 2026-09-22T14:45:34
+git commit: 6c87f79-dirty
+
+[axis]  -- authoritative; the config dumps below do NOT describe this run
+swept      = beta3
+fixed      = beta1 = inf, beta2 = inf, card_model = 2, q = 0.5
+beta3 grid = 80 rungs over [0.05, 100] (log), marks [1.0] folded in exactly
+worlds     = ['raw', 'norm']
+configs    = [1, 2, 3, 4]
+families   = top2, solved (card 2, collapsed branch EXCLUDED), rd frontier
+cells      = 640
+seeds      = policy (init_policy.init_states), no collapsed branch
+solver     = eps_conv 1e-08, maxiter 50000
+workers    = 12
+
+[raw] cfg 1  mu [-96.0, 0.0, 96.0]  grid [-160, 160] x 1000 (step 0.3203)  cut 0  |d1| 48  mirror-symmetric True
+[raw] cfg 2  mu [-128.0, 0.0, 128.0]  grid [-192, 192] x 1000 (step 0.3844)  cut 0  |d1| 64  mirror-symmetric True
+[raw] cfg 3  mu [-96.0, -59.0, 96.0]  grid [-160, 160] x 1000 (step 0.3203)  cut 0  |d1| 77.5  mirror-symmetric False
+[raw] cfg 4  mu [-96.0, 59.0, 96.0]  grid [-160, 160] x 1000 (step 0.3203)  cut 0  |d1| 18.5  mirror-symmetric False
+[norm] cfg 1  mu [-96.0, 0.0, 96.0]  grid [-480, 480] x 2998 (step 0.3203)  cut 0  |d1| 48  mirror-symmetric True
+[norm] cfg 2  mu [-128.0, 0.0, 128.0]  grid [-512, 512] x 3198 (step 0.3203)  cut 0  |d1| 64  mirror-symmetric True
+[norm] cfg 3  mu [-96.0, -59.0, 96.0]  grid [-480, 480] x 2998 (step 0.3203)  cut 0  |d1| 77.5  mirror-symmetric False
+[norm] cfg 4  mu [-96.0, 59.0, 96.0]  grid [-480, 480] x 2998 (step 0.3203)  cut 0  |d1| 18.5  mirror-symmetric False
+
+[base config: config.py]
+SIGMA = 64
+EPSILON = 64
+N_SAMPLES = 1000
+MU_AS = array([-96, -59,  96])
+CARD_MODEL = 2
+BETA1 = 4
+BETA2 = inf
+BETA3 = 3.5
+MAXITER = 200000
+EPS_CONV = 1e-06
+DIFF_CONV_PATIENCE = 300
+J_EPS_CONV = 0.0001
+J_CONV_WINDOW = 200
+J_CONV_PATIENCE = 300
+ALPHA = 0.05
+CYCLE_MAX_PERIOD = 4000
+CYCLE_MIN_PERIODS = 3
+CYCLE_J_EPS = 1e-09
+CARD_TOL = 0.05
+PLOT_CONFIDENCE_CURVE = True
+PLOT_CONVERGENCE = True
+PLOT_POGW_MATRIX = True
+PLOT_PAGO_MATRIX = True
+PLOT_PAGW_MATRIX = True
+SHOW_PLOTS = True
+
+[beta_sweep config]
+SIGMA = 64.0
+EPSILON = 64.0
+N_SAMPLES = 1000
+MU_AS = array([-96, -59,  96])
+CARD_MODEL = 2
+PW_PRIORS = ('uniform', 'mixture')
+PW_PRIOR = 'uniform'
+MAXITER = 200000
+EPS_CONV = 1e-06
+CARD_TOL = 0.05
+FIXED_POINT_STOP_REASONS = frozenset({'diff', 'collapsed_branch'})
+BETA1 = 1000.0
+BETA2 = 1
+BETA_MIN = 0.3
+BETA_MAX = 20.0
+BETA_GRID_N = 100
+BETA_SPACING = 'log'
+BA_SELECT_BRANCH = True
+N_WORKERS = 16
+OUTPUT_DIR = 'beta_sweep/results'
+
+[generalisation config]
+ARRAYS_NAME = 'states.npz'
+BETA2 = inf
+BETA_MAX = 10.0
+BETA_MIN = 1.0
+BETA_N = 10
+BETA_SPACING = 'log'
+CARD_MODEL = 2
+CARD_TOL = 0.05
+CELLS_NAME = 'scores.csv'
+CONFIGS = (1, 2, 3, 4)
+EPSILON = 64.0
+EPS_CONV = 1e-08
+FULL_MAXITER = 50000
+LATEST_NAME = 'latest.txt'
+LOG_NAME = 'config_log.txt'
+N_SAMPLES = 1000
+N_WORKERS = 12
+OUTPUT_DIR = '/home/pzc/Documents/phd/programming_projects/ITBR_confidence/generalisation/results'
+PW_PRIOR = 'uniform'
+Q_BOUNDS = (0.001, 0.999)
+Q_VARIANTS = (0.5, 0.6, 0.75, 0.8)
+Q_XATOL = 1e-06
+REGRID_IDENTITY_TOL = 1e-12
+REPORT_NAME = 'report.md'
+REQUIRE_BETA1_GT_BETA3 = True
+SELF_TRANSFER_TOL = 1e-06
+SIGMA = 64.0
+SPECIALISTS_NAME = 'specialists.csv'
+SUMMARY_NAME = 'summary.csv'
+SWEEP_Q = True
+WORLD = 'raw'
+WORLDS = ('raw', 'norm')
+
+[run summary]
+cells = 1920 rows, duration = 2600.8s
+family census        = {'rd': 640, 'solved': 640, 'top2': 640}
+non-finite rows      = 0 of 1920
+stop_reason census   = {'diff': 640}
+cardinality census   = {2.0: 640}
+winning seed census  = {'cut_d1_reduced': 392, 'cut_d2_reduced': 194, 'midsplit_reduced': 54}
+chirality census     = {0.0: 449, -1.0: 161, 1.0: 30}
+self-transfer resid  = max 1.22e-09, median 8.88e-16
+collapsed would win  = 0 of 640
+
+[checks]
+hard_router = {'chain |I(W;A) - I(A;O) - I(W;A|O)|': 2.220446049250313e-16, 'router noise max |I(A;O|W)|': 2.220446049250313e-16, 'max |I(W;O) - log 2|': 0.023178091881868146, 'ok': False}
+mirror_cfg3_cfg4 = {'max_abs_diff_cfg3_vs_cfg4': {'norm/rd': 1.5987211554602254e-14, 'norm/solved': 3.084483779502989e-10, 'norm/top2': 6.217248937900877e-15, 'raw/rd': 1.4210854715202004e-14, 'raw/solved': 1.4756013078098817e-10, 'raw/top2': 3.552713678800501e-15}, 'ok': True}
+top2_is_bayes_at_beta3_1 = {'max |p(a|w) - hard top-2 posterior| at beta3 = 1': 2.220446049250313e-16, 'tied-argmin columns skipped': 0, 'ok': True}
+lean_vs_transfer_score = {'max |lean - transfer.score|': 0.0, 'cells compared': 12, 'ok': True}
+
+[checks re-run 2026-09-22T15:29:55]
+hard_router = {'chain |I(W;A) - I(A;O) - I(W;A|O)|': 4.440892098500626e-16, 'router noise max |I(A;O|W)|': 2.220446049250313e-16, 'max |I(W;O) - H(p(o))|': 2.220446049250313e-16, 'cut does not halve p(w)': {'norm/cfg3': {'p(o)': [0.60723, 0.39277], 'H(O)': 0.669969}, 'norm/cfg4': {'p(o)': [0.39277, 0.60723], 'H(O)': 0.669969}}, 'ok': True}
+mirror_cfg3_cfg4 = {'max_abs_diff_cfg3_vs_cfg4': {'norm/rd': 1.5987211554602254e-14, 'norm/solved': 3.084483918280867e-10, 'norm/top2': 6.217248937900877e-15, 'raw/rd': 1.4210854715202004e-14, 'raw/solved': 1.4756009608651866e-10, 'raw/top2': 3.552713678800501e-15}, 'ok': True}
+top2_is_bayes_at_beta3_1 = {'max |p(a|w) - hard top-2 posterior| at beta3 = 1': 2.220446049250313e-16, 'tied-argmin columns skipped': 0, 'ok': True}
+lean_vs_transfer_score = {'max |lean - transfer.score|': 0.0, 'cells compared': 12, 'ok': True}
