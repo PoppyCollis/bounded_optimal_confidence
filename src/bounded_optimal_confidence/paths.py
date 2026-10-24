@@ -9,3 +9,5 @@ PAPER_FITS_DIR = RESULTS_DIR / "paper_fits"     # the fits reported in the paper
 FIGURES_DIR = REPO_ROOT / "figures"             # figures/paper from the paper's fits; figures/runs, figures/smoke from new runs
 RATE_UTILITY_DIR = RESULTS_DIR / "rate_utility"             # new rate-utility sweeps, one folder each
 PAPER_RATE_UTILITY_DIR = RESULTS_DIR / "paper_rate_utility" # the sweep the paper's rate/cost-utility figure reads
+SHARED_ATTENTION_DIR = RESULTS_DIR / "shared_attention"             # new shared-attention runs and B sweeps
+PAPER_SHARED_ATTENTION_DIR = RESULTS_DIR / "paper_shared_attention" # the B sweep the paper's p(x|phi) figure reads
