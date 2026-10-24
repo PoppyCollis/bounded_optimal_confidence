@@ -2,7 +2,7 @@
 
 Supporting code for "Decision confidence reflects bounded-optimal attention", (P Collis, P F Kinghorn, R Singh, P Lanillos and C L Buckley).
 
-Code contains parts: 
+Code contains two parts: 
 
 1. Model fits to human decision confidence data.
 2. Information-theoretic bounded-rational analysis
