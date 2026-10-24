@@ -65,7 +65,7 @@ so they come back bit for bit only on the same numpy and scipy.
 Bayesian model selection over the ten (protected exceedance probability): Diff 0.47, Sym Top-2 (soft) 0.51, every
 other model ≤ 0.006, omnibus risk 0.0015. Neither Sym Top-2 model differs from Diff on a paired t-test of the
 per-subject AIC (hard: t(12) = 1.19, p = 0.26; soft: t(12) = −0.90, p = 0.39); every other model is worse,
-p < 0.001. See [docs/statistics.md](docs/statistics.md).
+p < 0.001. 
 
 ## Data
 
