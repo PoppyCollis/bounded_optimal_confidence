@@ -1,7 +1,8 @@
 # bounded_optimal_confidence
 
-The paper's model fits to human confidence reports. The data are experiment 1 of Li & Ma (2020): 13 subjects categorise a
-dot into one of three categories and rate their confidence on four levels, across four category layouts.
+The paper's code: the model fits to human confidence reports, the statistics on the fits, and the bounded-rational
+hierarchy behind the rate-utility and cost-utility curves. The data are experiment 1 of Li & Ma (2020): 13 subjects
+categorise a dot into one of three categories and rate their confidence on four levels, across four category layouts.
 
 Ten decision models are fitted. All of them simulate a noisy measurement, a category posterior, Dirichlet decision noise,
 an argmax decision and a confidence readout. They differ in what happens to the posterior before the decision:
@@ -14,6 +15,11 @@ an argmax decision and a confidence readout. They differ in what happens to the 
 [docs/models.md](docs/models.md) gives the models in full, [docs/fitting.md](docs/fitting.md) describes the fit, and
 [docs/statistics.md](docs/statistics.md) the group-level comparison of the fitted models (Bayesian model selection
 and paired tests).
+
+The bounded-optimal attention model itself is a two-level bounded-rational hierarchy (an attentional state, then a
+category), solved by three-variable Blahut-Arimoto. [docs/rate_utility.md](docs/rate_utility.md) describes the sweep
+in the decision temperature beta3 that compares it, on every category layout, with the pinned symmetric top-2
+hierarchy and with one-step rate distortion, in the (rate, accuracy) and (information cost, accuracy) planes.
 
 ## Install
 
@@ -36,7 +42,10 @@ so they come back bit for bit only on the same numpy and scipy.
 | `python scripts/bayesian_model_selection.py [--paper]` | random-effects BMS: frequencies, exceedance probabilities, BOR; Diff vs the Sym Top-2 family |
 | `python scripts/paired_tests.py [--paper]` | every model vs Diff on per-subject AIC: t-test, Wilcoxon, bootstrap CI of ΔAIC |
 | `python scripts/plot_bms.py [--paper]` | the BMS table and PXP bar figures → `figures/<paper|runs|smoke>/` |
-| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures |
+| `python scripts/rate_utility_sweep.py` | the beta3 sweep of the three families on the 8 worlds (640 cells, about 40 min) → `results/rate_utility/rateutil_<date>_<time>/`; `--tag smoke --configs 1 3 --worlds raw --beta3-n 6` for a minute's check |
+| `python scripts/check_paper_rate_utility.py [--n N \| --all]` | re-solve cells of the paper's sweep and confirm every column is reproduced exactly (8 cells, about 2 min) |
+| `python paper_plots/fig_rate_cost_utility.py [--cfg 1\|all]` | the rate-utility / cost-utility figure from the paper's sweep → `paper_plots/figures/` |
+| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures, the hierarchy's worlds and identities and the stored sweep |
 
 The model names are `diff`, `ent`, `sym_top2_hard`, `sym_spec_hard`, `asym_spec_l_hard`, `asym_spec_r_hard`,
 `sym_top2_soft`, `sym_spec_soft`, `asym_spec_l_soft` and `asym_spec_r_soft`. Scripts use 14 worker processes by
@@ -53,14 +62,19 @@ default; change it with `--n-workers`.
         runs.py             reading fit results
         stats/              bms (Bayesian model selection), paired (t-test, Wilcoxon), bootstrap, tables
         plotting/           style, model_bars (the shared bar layout), bms_figures
+        bounded_rational/   the hierarchy: blahut_arimoto (the solver), world_model and world (U and p(w) per layout),
+                            seeds, reduced (router-pinned solve), identity, score, info_terms, rate_distortion,
+                            candidates (top-2 pathway, specialist solve), transfer, rate_utility (the sweep), paper_run
         utils/              worker pool, git provenance
     scripts/                the runnable entry points above
+    paper_plots/            the paper's figure scripts and their figures (paper_plots/figures)
     tests/
     data/li_ma_2020/        the experiment 1 data, with its README
     results/paper_fits/     the fits reported in the paper, one folder per model (README: provenance)
-    results/fits/           new runs
+    results/paper_rate_utility/   the sweep the rate/cost-utility figure is drawn from (README: provenance, columns)
+    results/fits/, results/rate_utility/   new runs
     figures/paper/          figures drawn from the paper's fits (figures/runs and figures/smoke: from new runs)
-    docs/                   models, fitting, statistics, provenance (how this maps to the original ITBR_confidence code)
+    docs/                   models, fitting, statistics, rate_utility, provenance (how this maps to the original ITBR_confidence code)
 
 ## The paper's fits
 
