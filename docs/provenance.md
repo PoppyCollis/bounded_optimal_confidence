@@ -52,7 +52,8 @@ The repertoires were renamed as well: `top2` → `sym_top2`, `sym` → `sym_spec
 | `stats/bootstrap.py` | `paper_plots/bootstrap_ci.py` |
 | `stats/paired.py` | new: the paired t-tests were ad hoc (recorded in `memory.md`) |
 | `stats/tables.py` | `fig_pooled_bms.summary`, `pooled_bms_family.main`, `fig_pooled_aic.summary` (the bootstrap column) |
-| `plotting/style.py` | `paper_plots/fig_likelihood_confidence.py` (palette, sizes, rcParams) |
+| `plotting/style.py` | `paper_plots/fig_likelihood_confidence.py` (palette, sizes, rcParams, `STATE_COLORS`, `CATEGORY_LABELS`) |
+| `plotting/readout_traces.py` | `paper_plots/bayes_1d_readouts.py` (the posterior, the four readouts, `rescale`, `draw_traces`, `style_axis`, `print_traces`; its own figure dropped) and `fig_likelihood_confidence.likelihoods` |
 | `plotting/model_bars.py` | `fig_pooled_aic.bar_figure` (the layout, legends) |
 | `plotting/bms_figures.py` | `fig_pooled_bms.table_figure` / `bar_figure` |
 | `bounded_rational/settings.py` | the constants the sweep reaches, from the root `config.py` (`ALPHA`, the patience counters, the cycle detector, `CARD_TOL`), `partition_enum/config.py` and `fixed_points/config.py` (`REDUCED_*`, `CHIRALITY_*`), `generalisation/config.py` (the world, `CONFIGS`, `WORLDS`, `EPS_CONV`, `FULL_MAXITER`) and `beta_sweep/norm_world.py` (`SIG_S`, `EPS_SD`, `GRID_STEP`); the environment-variable overrides dropped |
@@ -76,6 +77,10 @@ The repertoires were renamed as well: `top2` → `sym_top2`, `sym` → `sym_spec
 | `shared_attention/paper_run.py` | new: reading the stored sweep and comparing a re-solved job with it |
 | `scripts/optimise_attention_discrete.py` | `python -m generalisation.optimise_attention_discrete` |
 | `paper_plots/fig_pxgphi_vs_B.py` | `paper_plots/fig_pxgphi_vs_B.py`; the style constants it imported from `fig_likelihood_confidence` come from `plotting/style.py`, the default run is the paper's stored sweep (`--latest` for a new one) |
+| `paper_plots/fig_likelihood_confidence.py` | `paper_plots/fig_likelihood_confidence.py`; the drawing unchanged, the helpers from `plotting/readout_traces.py`, the style from `plotting/style.py` |
+| `paper_plots/fig_decision_confidence_panels.py` | `paper_plots/paper_plots_4_new.py`: `plot_bars` and the four-panel figure; its other two figures and the `plt.show()` calls dropped, its style block = `use_paper_style()` plus the title size, spine and font-type keys it set beyond that |
+| `paper_plots/fig_config_likelihoods.py` | `paper_plots/fig_config_likelihoods.py`, unchanged but for the imports |
+| `paper_plots/fig_pooled_aic.py` | `paper_plots/fig_pooled_aic.py`: `summary` and the error bars, limits and ticks of `bar_figure` unchanged; the bars and legends through `plotting/model_bars.py`; the fits read with pandas' default float parsing as there (not `runs.read_fit`'s round trip), so the bars come from the same numbers; the AIC table figure dropped |
 
 ## Not carried over
 
@@ -94,6 +99,11 @@ discrete one to 5e-7 in the weights); the `m_first` and `a_first` world priors' 
 (the samplers and the flag are still in the script); the single-B result folders; `world_prior.py`,
 `shared_world_sample.py`, `shared_pathway.py`, `shared_selector_and_models*.py` and the other shared-pathway
 experiments of `generalisation/`.
+
+The other `paper_plots` scripts: `bayes_1d_readouts_3opt`, `fig_attention_cartoon*`, `fig_config_likelihoods_2d`,
+`fig_negentropy_cfg1`, `fig_pago_vs_beta3`, `fig_top2_matrices`, `uniform_recentered_prior`, and `fig_pooled_bms` /
+`pooled_bms_family` (their statistics are `stats/`, their figures `plotting/bms_figures.py`); the AIC table figure of
+`fig_pooled_aic`; the `two_option_confidence` and `posterior_decision_criterion` figures of `paper_plots_4_new`.
 
 ## Paper fits
 

@@ -51,6 +51,10 @@ so they come back bit for bit only on the same numpy and scipy.
 | `python scripts/optimise_attention_discrete.py --world-prior recentred --B 250` | the shared attention optimum at one B (about a minute) → `results/shared_attention/`; `--sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2` for the paper's sweep (about 40 min, memory-bound) |
 | `python scripts/check_paper_shared_attention.py [--jobs B:seed ...]` | re-solve jobs of the paper's B sweep and confirm every column is reproduced exactly (all 30: about 40 min on 2 workers) |
 | `python paper_plots/fig_pxgphi_vs_B.py` | p(x|phi) and the router cut against B/sigma from the paper's sweep → `paper_plots/figures/` |
+| `python paper_plots/fig_likelihood_confidence.py [--norm theory]` | likelihoods and confidence readouts of the 1D posterior, 2AFC and 3AFC → `paper_plots/figures/` |
+| `python paper_plots/fig_decision_confidence_panels.py` | decision and confidence of the Difference and Entropy Top-2 models on option-probability bars → `paper_plots/figures/` |
+| `python paper_plots/fig_config_likelihoods.py` | the dot stimulus and the four layouts' likelihoods → `paper_plots/figures/` |
+| `python paper_plots/fig_pooled_aic.py` | summed ΔAIC of every model against Diff, with bootstrap CIs, from the paper's fits → `paper_plots/figures/` |
 | `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures, the hierarchy's worlds and identities and the stored sweeps |
 
 The model names are `diff`, `ent`, `sym_top2_hard`, `sym_spec_hard`, `asym_spec_l_hard`, `asym_spec_r_hard`,
