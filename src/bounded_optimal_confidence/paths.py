@@ -7,3 +7,5 @@ RESULTS_DIR = REPO_ROOT / "results"
 FITS_DIR = RESULTS_DIR / "fits"                 # new fit runs, one folder each
 PAPER_FITS_DIR = RESULTS_DIR / "paper_fits"     # the fits reported in the paper, one folder per model
 FIGURES_DIR = REPO_ROOT / "figures"             # figures/paper from the paper's fits; figures/runs, figures/smoke from new runs
+RATE_UTILITY_DIR = RESULTS_DIR / "rate_utility"             # new rate-utility sweeps, one folder each
+PAPER_RATE_UTILITY_DIR = RESULTS_DIR / "paper_rate_utility" # the sweep the paper's rate/cost-utility figure reads
