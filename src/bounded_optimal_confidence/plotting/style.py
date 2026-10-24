@@ -11,6 +11,9 @@ PURPLE, AQUA, CORAL, DARK = "#7F77DD", "#2BC4B6", "#D85A30", "#444441"   # reado
 INK = "#2C2C2A"                                         # text
 AXIS = "#5F5E5A"                                        # axis lines and ticks
 
+STATE_COLORS = [BLUE, ORANGE, GREEN]                    # the categories, in order
+CATEGORY_LABELS = {f"Category {k + 1}": c for k, c in enumerate(STATE_COLORS)}
+
 LABEL_SIZE = 24
 TICK_SIZE = 20
 LEGEND_SIZE = 20
