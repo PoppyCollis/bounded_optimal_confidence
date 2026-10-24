@@ -1,7 +1,7 @@
 # bounded_optimal_confidence
 
-The paper's code: the model fits to human confidence reports, the statistics on the fits, and the bounded-rational
-hierarchy behind the rate-utility and cost-utility curves. The data are experiment 1 of Li & Ma (2020): 13 subjects
+The paper's code: the model fits to human confidence reports, the statistics on the fits, the bounded-rational
+hierarchy behind the rate-utility and cost-utility curves, and the shared attention optimum over sampled worlds. The data are experiment 1 of Li & Ma (2020): 13 subjects
 categorise a dot into one of three categories and rate their confidence on four levels, across four category layouts.
 
 Ten decision models are fitted. All of them simulate a noisy measurement, a category posterior, Dirichlet decision noise,
@@ -20,6 +20,9 @@ The bounded-optimal attention model itself is a two-level bounded-rational hiera
 category), solved by three-variable Blahut-Arimoto. [docs/rate_utility.md](docs/rate_utility.md) describes the sweep
 in the decision temperature beta3 that compares it, on every category layout, with the pinned symmetric top-2
 hierarchy and with one-step rate distortion, in the (rate, accuracy) and (information cost, accuracy) planes.
+[docs/shared_attention.md](docs/shared_attention.md) describes the shared attention optimum: two sparse structure
+priors p(x|phi) and a hard router, shared across worlds drawn from the uniform recentred prior on the category means,
+swept in the box size B; the optimum tends to the symmetric top-2 code [.5, .5, 0] / [0, .5, .5] as B/sigma grows.
 
 ## Install
 
@@ -45,7 +48,10 @@ so they come back bit for bit only on the same numpy and scipy.
 | `python scripts/rate_utility_sweep.py` | the beta3 sweep of the three families on the 8 worlds (640 cells, about 40 min) → `results/rate_utility/rateutil_<date>_<time>/`; `--tag smoke --configs 1 3 --worlds raw --beta3-n 6` for a minute's check |
 | `python scripts/check_paper_rate_utility.py [--n N \| --all]` | re-solve cells of the paper's sweep and confirm every column is reproduced exactly (8 cells, about 2 min) |
 | `python paper_plots/fig_rate_cost_utility.py [--cfg 1\|all]` | the rate-utility / cost-utility figure from the paper's sweep → `paper_plots/figures/` |
-| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures, the hierarchy's worlds and identities and the stored sweep |
+| `python scripts/optimise_attention_discrete.py --world-prior recentred --B 250` | the shared attention optimum at one B (about a minute) → `results/shared_attention/`; `--sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2` for the paper's sweep (about 40 min, memory-bound) |
+| `python scripts/check_paper_shared_attention.py [--jobs B:seed ...]` | re-solve jobs of the paper's B sweep and confirm every column is reproduced exactly (all 30: about 40 min on 2 workers) |
+| `python paper_plots/fig_pxgphi_vs_B.py` | p(x|phi) and the router cut against B/sigma from the paper's sweep → `paper_plots/figures/` |
+| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures, the hierarchy's worlds and identities and the stored sweeps |
 
 The model names are `diff`, `ent`, `sym_top2_hard`, `sym_spec_hard`, `asym_spec_l_hard`, `asym_spec_r_hard`,
 `sym_top2_soft`, `sym_spec_soft`, `asym_spec_l_soft` and `asym_spec_r_soft`. Scripts use 14 worker processes by
@@ -65,6 +71,8 @@ default; change it with `--n-workers`.
         bounded_rational/   the hierarchy: blahut_arimoto (the solver), world_model and world (U and p(w) per layout),
                             seeds, reduced (router-pinned solve), identity, score, info_terms, rate_distortion,
                             candidates (top-2 pathway, specialist solve), transfer, rate_utility (the sweep), paper_run
+        shared_attention/   optimise_attention_discrete (sparse structure priors and the shared router over sampled
+                            worlds, the B sweep), paper_run
         utils/              worker pool, git provenance
     scripts/                the runnable entry points above
     paper_plots/            the paper's figure scripts and their figures (paper_plots/figures)
@@ -72,9 +80,11 @@ default; change it with `--n-workers`.
     data/li_ma_2020/        the experiment 1 data, with its README
     results/paper_fits/     the fits reported in the paper, one folder per model (README: provenance)
     results/paper_rate_utility/   the sweep the rate/cost-utility figure is drawn from (README: provenance, columns)
-    results/fits/, results/rate_utility/   new runs
+    results/paper_shared_attention/   the B sweep the p(x|phi) figure is drawn from (README: model, table, columns)
+    results/fits/, results/rate_utility/, results/shared_attention/   new runs
     figures/paper/          figures drawn from the paper's fits (figures/runs and figures/smoke: from new runs)
-    docs/                   models, fitting, statistics, rate_utility, provenance (how this maps to the original ITBR_confidence code)
+    docs/                   models, fitting, statistics, rate_utility, shared_attention, provenance (how this maps to
+                            the original ITBR_confidence code)
 
 ## The paper's fits
 

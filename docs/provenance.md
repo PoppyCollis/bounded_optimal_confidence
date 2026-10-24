@@ -1,7 +1,8 @@
 # Where the code came from
 
 This package is a cut-down port of the paper's code in `ITBR_confidence`: the human-data fitting pipeline, the
-statistics on the fits, and the bounded-rational hierarchy sweep behind the rate/cost-utility figure. Only the code
+statistics on the fits, the bounded-rational hierarchy sweep behind the rate/cost-utility figure, and the shared
+attention optimum over sampled worlds behind the p(x|phi) against B/sigma figure. Only the code
 paths the paper's runs use were carried over. The code was restructured and renamed, but the arithmetic and the
 random streams were kept, so the port gives the same numbers bit for bit. This was checked in three ways during the port:
 
@@ -71,6 +72,10 @@ The repertoires were renamed as well: `top2` → `sym_top2`, `sym` → `sym_spec
 | `bounded_rational/paper_run.py` | new: reading the stored run and comparing a re-solved cell with it |
 | `scripts/rate_utility_sweep.py` | `python -m generalisation.rate_utility_beta3` |
 | `paper_plots/fig_rate_cost_utility.py` | `paper_plots/fig_rate_cost_utility_cfg1.py`; the text sizes it imported from `bayes_1d_readouts` and `fig_likelihood_confidence` are declared in the script, the rcParams those set on import come from `plotting/style.py` |
+| `shared_attention/optimise_attention_discrete.py` | `generalisation/optimise_attention_discrete.py`, whole: unchanged but for the output directory and the run lines of its docstring |
+| `shared_attention/paper_run.py` | new: reading the stored sweep and comparing a re-solved job with it |
+| `scripts/optimise_attention_discrete.py` | `python -m generalisation.optimise_attention_discrete` |
+| `paper_plots/fig_pxgphi_vs_B.py` | `paper_plots/fig_pxgphi_vs_B.py`; the style constants it imported from `fig_likelihood_confidence` come from `plotting/style.py`, the default run is the paper's stored sweep (`--latest` for a new one) |
 
 ## Not carried over
 
@@ -83,6 +88,12 @@ analyses; the transfer experiment, the shared-pathway experiments and `plot_rate
 `generalisation/`; the fixed-point store (`fixed_points/store.py`, `verify.py`); `regime_map`; `two_state_attention`;
 `partition_enum`'s enumeration; random restarts; the beta3 = 0 (purely serial) branches, which the solver still
 contains but no paper run enters.
+
+From the shared-attention side: the continuous-w `optimise_attention.py` (its 2026-10-08 sweep agrees with the
+discrete one to 5e-7 in the weights); the `m_first` and `a_first` world priors' runs and the `--sigma-range` runs
+(the samplers and the flag are still in the script); the single-B result folders; `world_prior.py`,
+`shared_world_sample.py`, `shared_pathway.py`, `shared_selector_and_models*.py` and the other shared-pathway
+experiments of `generalisation/`.
 
 ## Paper fits
 
@@ -97,6 +108,15 @@ by re-solving cells: `scripts/check_paper_rate_utility.py` reproduces every colu
 on the cells it re-solves, and the same eight cells solved by the original code in its own environment gave the same
 rows. The figure drawn from the stored run is pixel-identical to the original's PNG, and its SVG identical up to the
 date stamp and matplotlib's random element ids. `docs/rate_utility.md` describes the sweep.
+
+## The shared-attention sweep
+
+`results/paper_shared_attention/optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261012_150128/` is the
+original run, copied unchanged (its README gives the model, the table and the columns). The sweep is deterministic
+(`np.random.default_rng(seed)` draws the worlds), so the port is checked by re-running it:
+`scripts/check_paper_shared_attention.py` reproduces every column of the stored `sweep.csv` but the two timing ones,
+on all 30 jobs. The figure drawn from the stored run is pixel-identical to the original's PNG and its SVG identical up
+to the date stamp and element ids. `docs/shared_attention.md` describes the model and the sweep.
 
 ## Statistics
 
