@@ -5,7 +5,7 @@ Trial-by-trial data of the 13 participants of experiment 1 of
 > Li, H.-H. and Ma, W. J. (2020). Confidence reports in decision-making with multiple alternatives violate the
 > Bayesian confidence hypothesis. *Nature Communications* 11, 2004. doi:10.1038/s41467-020-15581-6
 
-copied unchanged from the authors' repository (`confidence-multiple-alternatives`, folder `data/EXP1`). Please cite
+copied unchanged from the authors' repository (`[confidence-multiple-alternatives](https://github.com/hsinhungli/confidence-multiple-alternatives)`, folder `data/EXP1`). Please cite
 the paper when using the data.
 
 ## Task
