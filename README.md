@@ -5,26 +5,9 @@ Supporting code for "Decision confidence reflects bounded-optimal attention", (P
 Code contains parts: 
 
 1. Model fits to human decision confidence data.
-
-Ten decision models are fitted. All of them simulate a noisy measurement, a category posterior, Dirichlet decision noise,
-an argmax decision and a confidence readout. They differ in what happens to the posterior before the decision:
-
-- **Diff** and **Ent**: the standard Bayes posterior, read out as top-1 minus top-2 (Diff) or as entropy (Ent).
-- **Attention models**: the posterior comes from collapsed inference over a repertoire of attentional masks.
-  The four repertoires are Sym Top-2, Sym Spec, Asym-L and Asym-R. Each is fitted with **hard** attention (the
-  maximum-evidence mask, β = ∞) and with **soft** attention (β fitted).
-
-[docs/models.md](docs/models.md) gives the models in full, [docs/fitting.md](docs/fitting.md) describes the fit, and
-[docs/statistics.md](docs/statistics.md) the group-level comparison of the fitted models (Bayesian model selection
-and paired tests).
-
 2. Information-theoretic bounded-rational analysis
-
-A) The bounded-optimal attention model optimised over configurations of the experiment. We compare the bounded-optimal hierarchy solved by three-variable Blahut-Arimoto with the pinned symmetric top-2
-hierarchy and with one-step rate distortion, in the (rate, accuracy) and (information cost, accuracy) planes. [docs/rate_utility.md](docs/rate_utility.md) describes the sweep
-
-
-B) The optimal shared attention mechanism over configurations. [docs/shared_attention.md](docs/shared_attention.md) describes the shared attention optimum.
+   a) The bounded-optimal attention model optimised over single configurations of the experiment.
+   b) The optimal shared attention mechanism over a prior over configurations.
 
 ## Install
 
@@ -34,34 +17,6 @@ B) The optimal shared attention mechanism over configurations. [docs/shared_atte
 
 The dependencies are pinned to the versions the paper's fits were run with. The fits are Monte Carlo with fixed seeds,
 so they come back bit for bit only on the same numpy and scipy.
-
-## Run
-
-| command | what it does |
-|---|---|
-| `python scripts/fit_model.py --model sym_spec_soft` | fit one model to all 13 subjects → `results/fits/<model>_<date>_<time>/` |
-| `python scripts/fit_model.py --model diff --subjects 1 --simntrl 400 --smoke` | a quick end-to-end check (about a minute) |
-| `python scripts/fit_all_models.py` | fit all ten (about 10 h) |
-| `python scripts/summarise_fits.py [--paper]` | summed NLL / AIC, ΔAIC to Diff, nested-model search checks |
-| `python scripts/check_paper_fits.py` | re-score the paper's fits and confirm they are reproduced exactly (about 7 min) |
-| `python scripts/bayesian_model_selection.py [--paper]` | random-effects BMS: frequencies, exceedance probabilities, BOR; Diff vs the Sym Top-2 family |
-| `python scripts/paired_tests.py [--paper]` | every model vs Diff on per-subject AIC: t-test, Wilcoxon, bootstrap CI of ΔAIC |
-| `python scripts/plot_bms.py [--paper]` | the BMS table and PXP bar figures → `figures/<paper|runs|smoke>/` |
-| `python scripts/rate_utility_sweep.py` | the beta3 sweep of the three families on the 8 worlds (640 cells, about 40 min) → `results/rate_utility/rateutil_<date>_<time>/`; `--tag smoke --configs 1 3 --worlds raw --beta3-n 6` for a minute's check |
-| `python scripts/check_paper_rate_utility.py [--n N \| --all]` | re-solve cells of the paper's sweep and confirm every column is reproduced exactly (8 cells, about 2 min) |
-| `python paper_plots/fig_rate_cost_utility.py [--cfg 1\|all]` | the rate-utility / cost-utility figure from the paper's sweep → `paper_plots/figures/` |
-| `python scripts/optimise_attention_discrete.py --world-prior recentred --B 250` | the shared attention optimum at one B (about a minute) → `results/shared_attention/`; `--sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2` for the paper's sweep (about 40 min, memory-bound) |
-| `python scripts/check_paper_shared_attention.py [--jobs B:seed ...]` | re-solve jobs of the paper's B sweep and confirm every column is reproduced exactly (all 30: about 40 min on 2 workers) |
-| `python paper_plots/fig_pxgphi_vs_B.py` | p(x|phi) and the router cut against B/sigma from the paper's sweep → `paper_plots/figures/` |
-| `python paper_plots/fig_likelihood_confidence.py [--norm theory]` | likelihoods and confidence readouts of the 1D posterior, 2AFC and 3AFC → `paper_plots/figures/` |
-| `python paper_plots/fig_decision_confidence_panels.py` | decision and confidence of the Difference and Entropy Top-2 models on option-probability bars → `paper_plots/figures/` |
-| `python paper_plots/fig_config_likelihoods.py` | the dot stimulus and the four layouts' likelihoods → `paper_plots/figures/` |
-| `python paper_plots/fig_pooled_aic.py` | summed ΔAIC of every model against Diff, with bootstrap CIs, from the paper's fits → `paper_plots/figures/` |
-| `pytest` (`pytest -m slow` for the re-score tests) | the model identities, the likelihood, the paper fits, the statistics, the figures, the hierarchy's worlds and identities and the stored sweeps |
-
-The model names are `diff`, `ent`, `sym_top2_hard`, `sym_spec_hard`, `asym_spec_l_hard`, `asym_spec_r_hard`,
-`sym_top2_soft`, `sym_spec_soft`, `asym_spec_l_soft` and `asym_spec_r_soft`. Scripts use 14 worker processes by
-default; change it with `--n-workers`.
 
 ## Layout
 
