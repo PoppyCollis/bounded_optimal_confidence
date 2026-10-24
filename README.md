@@ -44,8 +44,6 @@ so they come back bit for bit only on the same numpy and scipy.
     results/paper_shared_attention/   the B sweep the p(x|phi) figure is drawn from (README: model, table, columns)
     results/fits/, results/rate_utility/, results/shared_attention/   new runs
     figures/paper/          figures drawn from the paper's fits (figures/runs and figures/smoke: from new runs)
-    docs/                   models, fitting, statistics, rate_utility, shared_attention, provenance (how this maps to
-                            the original ITBR_confidence code)
 
 ## The paper's fits
 
