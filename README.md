@@ -1,8 +1,10 @@
 # bounded_optimal_confidence
 
-The paper's code: the model fits to human confidence reports, the statistics on the fits, the bounded-rational
-hierarchy behind the rate-utility and cost-utility curves, and the shared attention optimum over sampled worlds. The data are experiment 1 of Li & Ma (2020): 13 subjects
-categorise a dot into one of three categories and rate their confidence on four levels, across four category layouts.
+Supporting code for "Decision confidence reflects bounded-optimal attention", (P Collis, P F Kinghorn, R Singh, P Lanillos and C L Buckley).
+
+Code contains parts: 
+
+1. Model fits to human decision confidence data.
 
 Ten decision models are fitted. All of them simulate a noisy measurement, a category posterior, Dirichlet decision noise,
 an argmax decision and a confidence readout. They differ in what happens to the posterior before the decision:
@@ -16,13 +18,13 @@ an argmax decision and a confidence readout. They differ in what happens to the 
 [docs/statistics.md](docs/statistics.md) the group-level comparison of the fitted models (Bayesian model selection
 and paired tests).
 
-The bounded-optimal attention model itself is a two-level bounded-rational hierarchy (an attentional state, then a
-category), solved by three-variable Blahut-Arimoto. [docs/rate_utility.md](docs/rate_utility.md) describes the sweep
-in the decision temperature beta3 that compares it, on every category layout, with the pinned symmetric top-2
-hierarchy and with one-step rate distortion, in the (rate, accuracy) and (information cost, accuracy) planes.
-[docs/shared_attention.md](docs/shared_attention.md) describes the shared attention optimum: two sparse structure
-priors p(x|phi) and a hard router, shared across worlds drawn from the uniform recentred prior on the category means,
-swept in the box size B; the optimum tends to the symmetric top-2 code [.5, .5, 0] / [0, .5, .5] as B/sigma grows.
+2. Information-theoretic bounded-rational analysis
+
+A) The bounded-optimal attention model optimised over configurations of the experiment. We compare the bounded-optimal hierarchy solved by three-variable Blahut-Arimoto with the pinned symmetric top-2
+hierarchy and with one-step rate distortion, in the (rate, accuracy) and (information cost, accuracy) planes. [docs/rate_utility.md](docs/rate_utility.md) describes the sweep
+
+
+B) The optimal shared attention mechanism over configurations. [docs/shared_attention.md](docs/shared_attention.md) describes the shared attention optimum.
 
 ## Install
 
