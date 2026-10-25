@@ -16,7 +16,7 @@ One figure, rate_cost_utility_cfg<cfg>_<world>.png (and .svg), two panels:
 left), Rate column | Cost column, panels lettered A-H underneath, x-axis
 labels on the bottom row only.
 
-Run: python paper_plots/fig_rate_cost_utility.py [--cfg 1|2|3|4|all] [--world norm|raw] [--run DIR]
+Run: python paper_plots/fig_rate_cost_utility.py [--cfg 1|2|3|4|all] [--world norm|raw] [--run DIR] [--out-dir DIR]
 
 From ITBR_confidence/paper_plots/fig_rate_cost_utility_cfg1.py. The drawing code is unchanged; the base text sizes it
 imported from the other figure scripts are declared below, and the rcParams those scripts set on import are
@@ -135,15 +135,16 @@ def main():
     ap.add_argument("--cfg", choices=("1", "2", "3", "4", "all"), default="1")
     ap.add_argument("--world", choices=("norm", "raw"), default="norm")
     ap.add_argument("--run", default=DEFAULT_RUN)
+    ap.add_argument("--out-dir", default=FIG_DIR, help="where the figure goes (default paper_plots/figures)")
     args = ap.parse_args()
     use_paper_style()
     cfg = args.cfg if args.cfg == "all" else int(args.cfg)
     df = load(args.run, args.world, cfg)
-    os.makedirs(FIG_DIR, exist_ok=True)
+    os.makedirs(args.out_dir, exist_ok=True)
     if cfg == "all":
-        figure_all(df, os.path.join(FIG_DIR, f"rate_cost_utility_all_{args.world}.png"))
+        figure_all(df, os.path.join(args.out_dir, f"rate_cost_utility_all_{args.world}.png"))
     else:
-        figure(df, os.path.join(FIG_DIR, f"rate_cost_utility_cfg{cfg}_{args.world}.png"))
+        figure(df, os.path.join(args.out_dir, f"rate_cost_utility_cfg{cfg}_{args.world}.png"))
 
 
 if __name__ == "__main__":

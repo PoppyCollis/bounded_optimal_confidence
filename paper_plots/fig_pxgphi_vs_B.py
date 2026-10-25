@@ -21,7 +21,7 @@ phi_1 is the structure further left (set by `optimise_attention.solve`), so noth
 Styled to match the other paper figures (text sizes, palette and axes from fig_likelihood_confidence): the states
 use the shared state colours (left blue, middle orange, right green), as in the likelihood figures.
 
-Run: python paper_plots/fig_pxgphi_vs_B.py [--run <sweep dir> | --latest [--world-prior recentred]]
+Run: python paper_plots/fig_pxgphi_vs_B.py [--run <sweep dir> | --latest [--world-prior recentred]] [--out-dir DIR]
     -> paper_plots/figures/pxgphi_vs_B_<prior>_discrete.png (and .svg); the `_discrete` tag comes from the sweep
        folder's name (a sweep of the continuous script, read with --run, would drop it)
 
@@ -168,13 +168,14 @@ def main():
     ap.add_argument("--run", default=str(PAPER_RUN_DIR), help="a B sweep folder (default: the paper's sweep)")
     ap.add_argument("--latest", action="store_true", help="instead, the newest sweep under results/shared_attention")
     ap.add_argument("--world-prior", default="recentred", help="with --latest: world prior of the sweep to read")
+    ap.add_argument("--out-dir", default=FIG_DIR, help="where the figure goes (default paper_plots/figures)")
     args = ap.parse_args()
     run_dir = newest_run(args.world_prior) if args.latest else args.run
     prior, sigma, x, pi, cut, xs = load(run_dir)
     print(f"{run_dir}\n{prior}, sigma {sigma:g}, {len(xs)} B values, {len(x)} rows")
-    os.makedirs(FIG_DIR, exist_ok=True)
+    os.makedirs(args.out_dir, exist_ok=True)
     tag = "_discrete" if "_discrete_" in os.path.basename(run_dir.rstrip("/")) else ""  # discrete-w sweep
-    mean, cut_mean = figure(x, pi, cut, xs, os.path.join(FIG_DIR, f"pxgphi_vs_B_{prior}{tag}.png"))
+    mean, cut_mean = figure(x, pi, cut, xs, os.path.join(args.out_dir, f"pxgphi_vs_B_{prior}{tag}.png"))
     np.set_printoptions(precision=3, suppress=True)
     print(f"{'B/sigma':>8s}  {'p(x|phi_1)':<22s}{'p(x|phi_2)':<22s}{'cut/sigma':>10s}{'min':>8s}{'max':>8s}"
           f"{'seeds':>6s}")

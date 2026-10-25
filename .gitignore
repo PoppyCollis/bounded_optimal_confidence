@@ -33,3 +33,6 @@ figures/smoke/
 
 # The pointer to the newest rate-utility sweep, rewritten by every run
 results/rate_utility/latest_rateutil.txt
+
+# Figures drawn from new runs by the paper_plots scripts (--out-dir); those from the paper's runs stay tracked
+paper_plots/figures/runs/

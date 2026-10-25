@@ -12,9 +12,10 @@ From `ITBR_confidence/paper_plots/fig_pooled_aic.py`: `summary` and the bars, er
 same function. The fits are read as that script read them (pandas' default float parsing, not the round-trip parsing
 of `runs.read_fit`), so the numbers are the ones its figure was drawn from. Its AIC table figure is not carried over.
 
-Run: python paper_plots/fig_pooled_aic.py
-    -> paper_plots/figures/pooled_aic_bars.png (and .svg)
+Run: python paper_plots/fig_pooled_aic.py [--runs] [--out-dir DIR]
+    -> paper_plots/figures/pooled_aic_bars.png (and .svg); --runs reads the newest run of each model instead
 """
+import argparse
 from pathlib import Path
 
 import matplotlib
@@ -25,24 +26,28 @@ import pandas as pd
 from bounded_optimal_confidence.models import MODELS
 from bounded_optimal_confidence.plotting.model_bars import ATTENTION_LABEL, add_legends, group_of, model_bars
 from bounded_optimal_confidence.plotting.style import INK, use_paper_style
-from bounded_optimal_confidence.runs import paper_run_dir
+from bounded_optimal_confidence.runs import newest_run_dir, paper_run_dir
 from bounded_optimal_confidence.stats.bootstrap import bootstrap_ci
 
 FIG_DIR = Path(__file__).resolve().parent / "figures"
 REFERENCE = "diff"
 
 
-def paper_fit(model):
-    """fit_results.csv of the paper's run of this model, indexed by subject."""
-    path = paper_run_dir(model) / "fit_results.csv"
+def read_run(model, runs=False):
+    """fit_results.csv of the paper's run of this model (or, with runs=True, of its newest run under results/fits),
+    indexed by subject."""
+    run = newest_run_dir(model) if runs else paper_run_dir(model)
+    if run is None:
+        raise SystemExit(f"no finished run of {model} under results/fits")
+    path = run / "fit_results.csv"
     print(f"  {path}")
     return pd.read_csv(path).set_index("subject")
 
 
-def summary():
+def summary(runs=False):
     """One row per model: summed NLL / AIC, deltas against REFERENCE (with the bootstrapped 95% CI of the summed
     delta AIC) and the subjects it beats REFERENCE for."""
-    fits = {name: paper_fit(name) for name in MODELS}
+    fits = {name: read_run(name, runs) for name in MODELS}
     ref = fits[REFERENCE]
     rows = []
     for name, model in MODELS.items():
@@ -74,13 +79,17 @@ def bar_figure(tab, path):
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--runs", action="store_true", help="the newest run of each model under results/fits, not the paper's")
+    ap.add_argument("--out-dir", type=Path, default=FIG_DIR, help="where the figure goes (default paper_plots/figures)")
+    args = ap.parse_args()
     print("runs:")
-    tab = summary()
+    tab = summary(args.runs)
     print(tab.drop(columns=["model", "bar", "subgroup", "group"])
           .to_string(index=False, float_format=lambda v: f"{v:.1f}"))
     use_paper_style()
-    FIG_DIR.mkdir(exist_ok=True)
-    bar_figure(tab, FIG_DIR / "pooled_aic_bars.png")
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+    bar_figure(tab, args.out_dir / "pooled_aic_bars.png")
 
 
 if __name__ == "__main__":
