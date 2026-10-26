@@ -1,0 +1,10 @@
+started      2026-10-25 20:09:59
+git commit   bfab47d-dirty
+model        sym_spec_soft (Sym Spec (soft)), k 7
+data         exp 1, configs 1-4 pooled (one parameter set per subject), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+sig_x        37 values, 0 and 10^[-1, 2.5]; stage A every 2th, stage B +-2 rungs
+log10 alpha  [0.0, 0.5, 1.0, 1.5, 2.0, 3.0, inf] (stage A), then +-0.5 at 0.125 around each subject's 3 best
+log10 beta   [-1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, inf] (stage A), then +-0.25 at 0.125 within [-1.25, 2.25], inf kept
+seed         0
+replicates   search 2500, refit 10000, clean 100000; 20 cells per subject refined
+finished     2026-10-25 21:41:06
