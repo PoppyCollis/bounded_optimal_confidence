@@ -1,10 +1,8 @@
 # The paper's shared-attention B sweep
 
 `optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261025_150919/` is the sweep the p(x|phi) figure is
-drawn from (`paper_plots/fig_pxgphi_vs_B.py`): `sweep.csv`, made by this package on 2026-10-25 on 2 workers. It is
-the re-run of the paper's original sweep (`ITBR_confidence/generalisation/results/`, 2026-10-12, in git history to
-commit 75a4496) and matches it in every column but the two timing ones. The folder name is kept: the figure reads
-the prior and the `_discrete` tag from it. The same sweep is
+drawn from (`paper_plots/fig_pxgphi_vs_B.py`): `sweep.csv`, made by this package on 2026-10-25 on 2 workers. The
+figure reads the prior and the `_discrete` tag from the folder name. The sweep is
 
     python scripts/optimise_attention_discrete.py --world-prior recentred --sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2
 
