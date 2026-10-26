@@ -36,14 +36,13 @@ so they come back bit for bit only on the same numpy and scipy.
                             worlds, the B sweep), paper_run
         utils/              worker pool, git provenance
     scripts/                the runnable entry points above
-    paper_plots/            the paper's figure scripts and their figures (paper_plots/figures)
+    paper_plots/            the paper's figure scripts and their figures (paper_plots/figures; runs/ and smoke/: from new runs)
     tests/
     data/li_ma_2020/        the experiment 1 data, with its README
     results/paper_fits/     the fits reported in the paper, one folder per model (README: provenance)
     results/paper_rate_utility/   the sweep the rate/cost-utility figure is drawn from (README: provenance, columns)
     results/paper_shared_attention/   the B sweep the p(x|phi) figure is drawn from (README: model, table, columns)
     results/fits/, results/rate_utility/, results/shared_attention/   new runs
-    figures/paper/          figures drawn from the paper's fits (figures/runs and figures/smoke: from new runs)
 
 ## The paper's fits
 

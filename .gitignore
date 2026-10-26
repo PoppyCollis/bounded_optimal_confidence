@@ -27,12 +27,10 @@ docs/
 # conclusions (fit_results.csv, clean.csv, report.md, config_log.txt) are small and stay tracked.
 results/fits/**/profile.csv
 
-# Figures drawn from new runs; those from the paper's fits (figures/paper) stay tracked
-figures/runs/
-figures/smoke/
-
 # The pointer to the newest rate-utility sweep, rewritten by every run
 results/rate_utility/latest_rateutil.txt
 
-# Figures drawn from new runs by the paper_plots scripts (--out-dir); those from the paper's runs stay tracked
+# Figures drawn from new runs (the paper_plots scripts' --out-dir, scripts/plot_bms.py without --paper); those from
+# the paper's fits and runs stay tracked in paper_plots/figures
 paper_plots/figures/runs/
+paper_plots/figures/smoke/

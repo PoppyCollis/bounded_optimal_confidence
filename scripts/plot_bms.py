@@ -1,8 +1,8 @@
 """Figures of the Bayesian model selection over the ten models: the results table and the PXP bar chart.
 
-    python scripts/plot_bms.py --paper      -> figures/paper/bms_table.png, figures/paper/bms_pxp_bars.png
-    python scripts/plot_bms.py              -> figures/runs/...   (the newest run of each model)
-    python scripts/plot_bms.py --smoke      -> figures/smoke/...
+    python scripts/plot_bms.py --paper      -> paper_plots/figures/bms_table.png, paper_plots/figures/bms_pxp_bars.png
+    python scripts/plot_bms.py              -> paper_plots/figures/runs/...   (the newest run of each model)
+    python scripts/plot_bms.py --smoke      -> paper_plots/figures/smoke/...
 
 The numbers are those of scripts/bayesian_model_selection.py (`stats.tables.bms_table`).
 """
@@ -23,7 +23,7 @@ def main():
     add_source_arguments(p)
     a = p.parse_args()
     tab, bor = bms_table(fits_from_args(a))
-    out = FIGURES_DIR / source_tag(a)
+    out = FIGURES_DIR if a.paper else FIGURES_DIR / source_tag(a)
     use_paper_style()
     table_figure(tab, bor, out / "bms_table.png")
     pxp_bar_figure(tab, bor, out / "bms_pxp_bars.png")
