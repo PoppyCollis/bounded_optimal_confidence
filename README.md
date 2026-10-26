@@ -53,9 +53,6 @@ The three full runs, as re-run on 2026-10-25 (wall times on a 20-core machine in
     python scripts/optimise_attention_discrete.py --world-prior recentred --sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2
                                                                                       # the shared-attention B sweep (52 min)
 
-`python scripts/compare_with_paper.py {fits,rate-utility,shared-attention}` compares a new run with the stored one
-column by column.
-
 ## The paper's fits
 
 Bayesian model selection over the ten (protected exceedance probability): Diff 0.47, Sym Top-2 (soft) 0.51, every
