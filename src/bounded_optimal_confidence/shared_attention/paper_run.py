@@ -7,7 +7,7 @@ import pandas as pd
 
 from bounded_optimal_confidence.paths import PAPER_SHARED_ATTENTION_DIR
 
-PAPER_RUN_DIR = PAPER_SHARED_ATTENTION_DIR / "optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261012_150128"
+PAPER_RUN_DIR = PAPER_SHARED_ATTENTION_DIR / "optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261025_150919"
 # The sweep's configuration (what `run_sweep` passes to every job for the paper's run).
 PAPER_CFG = dict(SIGMA=64.0, SIGMA_RANGE=None, N_WORLDS=10000, N_T=201, WORLD_PRIOR="recentred")
 KEY = ["B", "seed"]

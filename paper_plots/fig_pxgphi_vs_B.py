@@ -10,7 +10,7 @@ weight of the code [[.5, .5, 0], [0, .5, .5]] the optimum tends to.
 The cut is known to one step of the sweep's w grid (2.85 = 0.045 sigma): sweep.csv stores the first grid point
 routed to the other structure, and the cut plotted is the middle of the grid cell before it, in units of sigma.
 
-Default is the paper's sweep, results/paper_shared_attention/optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261012_150128
+Default is the paper's sweep, results/paper_shared_attention/optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261025_150919
 (discrete w; recentred world prior, sigma 64, 10000 worlds, seeds 0, 2, 4, 6, 8, B = 64 .. 2000). Limits of that
 sweep, visible in the figure:
   - six B values, so the segment between B / sigma 2 and 3.9 is a straight line across the change of supports;
