@@ -1,12 +1,6 @@
-# diff_alpha_sigx_pooled, exp 1, cfgs [1, 2, 3, 4] pooled -- diff_alpha_sigx_pooled_cfg1234_20260928_151314
-
-## fit
+# Diff (`diff`): exp 1, configs 1-4 pooled -- diff_20261025_151122
 
 - summed NLL **5780.0**, AIC **11715.9** over 13 subjects, k = 6
-- no per-config run for every cfg; pooling cost not computed
-- vs pooled top2hard (same k; AICs only):
-- vs k = 6 `entropy_top2_hard_alpha_sigx_pooled_cfg1234_20260926_193133` on 13 subjects: summed delta NLL **-18.4**, delta AIC **-36.7** (negative favours this model); diff wins on AIC for 9/13
-
 
 ```
  subject  sig_x  log10_alpha    b1    b2    b3  lapse     nll      aic    edge

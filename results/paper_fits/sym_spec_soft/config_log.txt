@@ -1,13 +1,10 @@
-started    2026-10-06 06:10:32
-git commit 9433f5d-dirty
-model      entropy_ci_sym_beta_alpha_sigx_pooled, k 7
-exp 1, cfgs [1, 2, 3, 4] pooled (one parameter set), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-alpha      log10 [np.float64(0.0), np.float64(0.5), np.float64(1.0), np.float64(1.5), np.float64(2.0), np.float64(3.0), np.float64(inf)] then fine_alphas around the N_SEED best cells
-beta       log10 [np.float64(-1.0), np.float64(-0.5), np.float64(0.0), np.float64(0.5), np.float64(1.0), np.float64(1.5), np.float64(2.0), np.float64(inf)] then fine_log_beta_ci (+-0.25 step 0.125, lo -1.25, inf kept)
-picks      -
-b          -
-gamma      -
-chirality  -
-polish     -
-simntrl    rank 2500, refit 10000, clean 100000; refine 20
-finished   2026-10-06 07:46:47
+started      2026-10-25 20:09:59
+git commit   bfab47d-dirty
+model        sym_spec_soft (Sym Spec (soft)), k 7
+data         exp 1, configs 1-4 pooled (one parameter set per subject), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+sig_x        37 values, 0 and 10^[-1, 2.5]; stage A every 2th, stage B +-2 rungs
+log10 alpha  [0.0, 0.5, 1.0, 1.5, 2.0, 3.0, inf] (stage A), then +-0.5 at 0.125 around each subject's 3 best
+log10 beta   [-1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, inf] (stage A), then +-0.25 at 0.125 within [-1.25, 2.25], inf kept
+seed         0
+replicates   search 2500, refit 10000, clean 100000; 20 cells per subject refined
+finished     2026-10-25 21:41:06

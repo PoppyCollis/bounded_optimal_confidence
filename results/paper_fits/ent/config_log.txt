@@ -1,11 +1,10 @@
-started    2026-10-04 11:11:53
-git commit a191964-dirty
-model      entropy_alpha_sigx_pooled, k 6
-exp 1, cfgs [1, 2, 3, 4] pooled (one parameter set), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-alpha      log10 [np.float64(-0.5), np.float64(-0.25), np.float64(0.0), np.float64(0.25), np.float64(0.5), np.float64(0.75), np.float64(1.0), np.float64(1.25), np.float64(1.5), np.float64(1.75), np.float64(2.0), np.float64(2.25), np.float64(2.5), np.float64(2.75), np.float64(3.0), np.float64(3.25), np.float64(3.5), np.float64(3.75), np.float64(4.0), np.float64(inf)]
-b          -
-gamma      -
-chirality  -
-polish     -
-simntrl    rank 2500, refit 10000, clean 100000; refine 20
-finished   2026-10-04 11:43:28
+started      2026-10-25 15:37:21
+git commit   43e2e06-dirty
+model        ent (Ent), k 6
+data         exp 1, configs 1-4 pooled (one parameter set per subject), subjects [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+sig_x        37 values, 0 and 10^[-1, 2.5]
+log10 alpha  [-0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, inf]
+log10 beta   -
+seed         0
+replicates   search 2500, refit 10000, clean 100000; 20 cells per subject refined
+finished     2026-10-25 16:04:40

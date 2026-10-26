@@ -1,17 +1,8 @@
-# entropy_ci_top2_beta_alpha_sigx_pooled, exp 1, cfgs [1, 2, 3, 4] pooled -- entropy_ci_top2_beta_alpha_sigx_pooled_cfg1234_20261006_074648
-
-## fit
+# Sym Top-2 (soft) (`sym_top2_soft`): exp 1, configs 1-4 pooled -- sym_top2_soft_20261025_183803
 
 - summed NLL **5754.1**, AIC **11690.2** over 13 subjects, k = 7
-- no per-config run for every cfg; pooling cost not computed
-- beta: inf (hard selection) for 2/13; finite fits median **42.2**, range [13.3, 178]
-- within 2 nats: beta = inf for 5/13, beta = 1 for 0/13, the grid bottom (beta 0.0562) for 0/13
-- vs pooled top2hard (nested, beta = inf):
-- vs k = 6 `entropy_top2_hard_alpha_sigx_pooled_cfg1234_20260926_193133` on 13 subjects: summed delta NLL **-44.2**, delta AIC **-62.5** (negative favours this model); beta wins on AIC for 8/13
-  - worse than that nested fit by > 1 nat (search failure): none
-- vs pooled diff (k 6; AICs only):
-- vs k = 6 `diff_alpha_sigx_pooled_cfg1234_20260928_151314` on 13 subjects: summed delta NLL **-25.9**, delta AIC **-25.7** (negative favours this model); ci_top2_beta wins on AIC for 6/13
-
+- beta: inf (hard attention) for 2/13; finite fits median **42.2**, range [13.3, 178]
+- within 2 nats of the best: beta = inf for 5/13, beta = 1 for 0/13, the grid bottom (beta 0.0562) for 0/13
 
 ```
  subject  sig_x  log10_alpha  log10_beta    b1    b2    b3  lapse     nll      aic              edge

@@ -93,10 +93,7 @@ def shared_attention(run_dir):
 
 
 def _read_clean(run_dir):
-    """clean.csv with the paper files' original column names mapped to this package's."""
-    df = pd.read_csv(Path(run_dir) / "clean.csv", float_precision="round_trip")
-    df = df.rename(columns={"pid": "sig_x_index"})
-    return df.drop(columns=[c for c in ("t", "chirality", "rule", "model_name") if c in df])
+    return pd.read_csv(Path(run_dir) / "clean.csv", float_precision="round_trip")
 
 
 def _frame_compare(new, stored, key, columns):

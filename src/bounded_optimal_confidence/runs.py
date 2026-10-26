@@ -1,6 +1,6 @@
 """Reading fit results: the paper's fits (results/paper_fits/<model>/) and new runs (results/fits/<model>_<time>/).
 
-Both are returned with the same columns (the paper files' original names are mapped, see results/paper_fits/README.md):
+Both have the same columns:
 subject, sig_x_index, sig_x, log10_alpha, [log10_beta], b1, b2, b3, lapse, refit_profile_nll, nll, edge, model, k, aic.
 """
 import pandas as pd
@@ -14,8 +14,6 @@ def read_fit(run_dir, model):
     model = get_model(model)
     # round_trip: the stored floats come back bit-exact, so a re-score can be compared with ==
     fit = pd.read_csv(run_dir / "fit_results.csv", float_precision="round_trip")
-    fit = fit.rename(columns={"pid": "sig_x_index"})
-    fit = fit.drop(columns=[c for c in ("t", "chirality", "rule", "model_name") if c in fit])
     fit["model"] = model.name
     return fit.sort_values("subject").reset_index(drop=True)
 

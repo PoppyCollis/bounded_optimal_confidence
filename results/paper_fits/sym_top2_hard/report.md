@@ -1,10 +1,6 @@
-# entropy_top2_hard_alpha_sigx_pooled, exp 1, cfgs [1, 2, 3, 4] pooled -- entropy_top2_hard_alpha_sigx_pooled_cfg1234_20260926_193133
-
-## fit
+# Sym Top-2 (hard) (`sym_top2_hard`): exp 1, configs 1-4 pooled -- sym_top2_hard_20261025_160440
 
 - summed NLL **5798.3**, AIC **11752.7** over 13 subjects, k = 6
-- vs the per-config fits summed (k 6 x 4; entropy_top2_hard_alpha_sigx_cfg1_20260918_175214, entropy_top2_hard_alpha_sigx_cfg2_20260918_213033, entropy_top2_hard_alpha_sigx_cfg3_20260919_004007, entropy_top2_hard_alpha_sigx_cfg4_20260925_223415): NLL 5522.8 (pooled +275.5), AIC 11669.7 (pooled +83.0)
-
 
 ```
  subject  sig_x  log10_alpha    b1    b2    b3  lapse     nll      aic    edge

@@ -1,22 +1,8 @@
-# entropy_ci_asym_right_beta_alpha_sigx_pooled, exp 1, cfgs [1, 2, 3, 4] pooled -- entropy_ci_asym_right_beta_alpha_sigx_pooled_cfg1234_20261006_043801
-
-## fit
+# Asym-R (soft) (`asym_spec_r_soft`): exp 1, configs 1-4 pooled -- asym_spec_r_soft_20261025_231156
 
 - summed NLL **6517.6**, AIC **13217.1** over 13 subjects, k = 7
-- no per-config run for every cfg; pooling cost not computed
-- beta: inf (hard selection) for 0/13; finite fits median **1.33**, range [1, 1.78]
-- within 2 nats: beta = inf for 0/13, beta = 1 for 1/13, the grid bottom (beta 0.0562) for 0/13
-- vs pooled ci_asym_right (nested, beta = inf):
-- vs k = 6 `entropy_ci_asym_right_alpha_sigx_pooled_cfg1234_20261005_233324` on 13 subjects: summed delta NLL **-2163.6**, delta AIC **-4301.2** (negative favours this model); beta wins on AIC for 13/13
-  - worse than that nested fit by > 1 nat (search failure): none
-- vs pooled entropy (nested, beta = 1: the Bayes posterior):
-- vs k = 6 `entropy_alpha_sigx_pooled_cfg1234_20261004_111153` on 13 subjects: summed delta NLL **-230.9**, delta AIC **-435.8** (negative favours this model); beta wins on AIC for 13/13
-  - worse than that nested fit by > 1 nat (search failure): none
-- vs pooled top2hard (k 6; AICs only):
-- vs k = 6 `entropy_top2_hard_alpha_sigx_pooled_cfg1234_20260926_193133` on 13 subjects: summed delta NLL **+719.2**, delta AIC **+1464.4** (negative favours this model); ci_asym_right_beta wins on AIC for 1/13
-- vs pooled diff (k 6; AICs only):
-- vs k = 6 `diff_alpha_sigx_pooled_cfg1234_20260928_151314` on 13 subjects: summed delta NLL **+737.6**, delta AIC **+1501.2** (negative favours this model); ci_asym_right_beta wins on AIC for 1/13
-
+- beta: inf (hard attention) for 0/13; finite fits median **1.33**, range [1, 1.78]
+- within 2 nats of the best: beta = inf for 0/13, beta = 1 for 1/13, the grid bottom (beta 0.0562) for 0/13
 
 ```
  subject  sig_x  log10_alpha  log10_beta    b1    b2    b3  lapse     nll      aic            edge

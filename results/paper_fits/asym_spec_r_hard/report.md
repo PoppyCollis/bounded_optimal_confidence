@@ -1,16 +1,6 @@
-# entropy_ci_asym_right_alpha_sigx_pooled, exp 1, cfgs [1, 2, 3, 4] pooled -- entropy_ci_asym_right_alpha_sigx_pooled_cfg1234_20261005_233324
-
-## fit
+# Asym-R (hard) (`asym_spec_r_hard`): exp 1, configs 1-4 pooled -- asym_spec_r_hard_20261025_175809
 
 - summed NLL **8681.2**, AIC **17518.3** over 13 subjects, k = 6
-- no per-config run for every cfg; pooling cost not computed
-- vs pooled isi_asym_right (same masks and k; cuts at the midpoints instead of model-derived):
-- vs k = 6 `entropy_isi_asym_right_alpha_sigx_pooled_cfg1234_20261003_194452` on 13 subjects: summed delta NLL **+168.8**, delta AIC **+337.7** (negative favours this model); ci_asym_right wins on AIC for 1/13
-- vs pooled top2hard (same k; AICs only):
-- vs k = 6 `entropy_top2_hard_alpha_sigx_pooled_cfg1234_20260926_193133` on 13 subjects: summed delta NLL **+2882.8**, delta AIC **+5765.7** (negative favours this model); ci_asym_right wins on AIC for 0/13
-- vs pooled diff (same k; AICs only):
-- vs k = 6 `diff_alpha_sigx_pooled_cfg1234_20260928_151314` on 13 subjects: summed delta NLL **+2901.2**, delta AIC **+5802.4** (negative favours this model); ci_asym_right wins on AIC for 0/13
-
 
 ```
  subject  sig_x  log10_alpha    b1    b2    b3  lapse     nll      aic               edge
