@@ -3,6 +3,11 @@
 From ITBR_confidence/three_var_blahut_arimoto.py: the update functions, the information terms (nats), the objective,
 one BA step, the limit-cycle detector and `threevarBAiterations`. The solver constants (ALPHA, the patience counters,
 the cycle detector's thresholds) live in `settings`; the comments on why they take their values are there too.
+
+This code is based on the three-variable Blahut-Arimoto optimisation of Tim Genewein's
+https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking (Genewein, Leibfried,
+Grau-Moya and Braun, 2015, "Bounded rationality, abstraction, and hierarchical decision-making: an
+information-theoretic optimality principle", Frontiers in Robotics and AI 2:27), ported from Julia to numpy.
 """
 import hashlib
 import time

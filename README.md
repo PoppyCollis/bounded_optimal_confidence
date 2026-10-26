@@ -51,6 +51,14 @@ other model ≤ 0.006, omnibus risk 0.0015. Neither Sym Top-2 model differs from
 per-subject AIC (hard: t(12) = 1.19, p = 0.26; soft: t(12) = −0.90, p = 0.39); every other model is worse,
 p < 0.001. 
 
+## Acknowledgements
+
+The three-variable Blahut-Arimoto solver in `bounded_rational/blahut_arimoto.py` is based on the three-variable
+optimisation in Tim Genewein's
+[BoundedRationalityAbstractionAndHierarchicalDecisionMaking](https://github.com/tgenewein/BoundedRationalityAbstractionAndHierarchicalDecisionMaking)
+(Genewein, Leibfried, Grau-Moya and Braun, 2015, "Bounded rationality, abstraction, and hierarchical
+decision-making: an information-theoretic optimality principle", *Frontiers in Robotics and AI* 2:27).
+
 ## Data
 
 Li, H.-H. and Ma, W. J. (2020). Confidence reports in decision-making with multiple alternatives violate the Bayesian
