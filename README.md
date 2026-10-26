@@ -47,19 +47,6 @@ so they come back bit for bit only on the same numpy and scipy.
 
 ## The paper's fits
 
-| model | k | summed NLL | summed AIC | ΔAIC vs Diff |
-|---|---|---|---|---|
-| Diff | 6 | 5780.0 | 11715.9 | 0 |
-| Ent | 6 | 6748.5 | 13653.0 | +1937.0 |
-| Sym Top-2 (hard) | 6 | 5798.3 | 11752.7 | +36.7 |
-| Sym Spec (hard) | 6 | 10049.4 | 20254.7 | +8538.8 |
-| Asym-L (hard) | 6 | 8842.8 | 17841.6 | +6125.7 |
-| Asym-R (hard) | 6 | 8681.2 | 17518.3 | +5802.4 |
-| Sym Top-2 (soft) | 7 | 5754.1 | 11690.2 | −25.7 |
-| Sym Spec (soft) | 7 | 6473.4 | 13128.9 | +1412.9 |
-| Asym-L (soft) | 7 | 6513.7 | 13209.4 | +1493.4 |
-| Asym-R (soft) | 7 | 6517.6 | 13217.1 | +1501.2 |
-
 Bayesian model selection over the ten (protected exceedance probability): Diff 0.47, Sym Top-2 (soft) 0.51, every
 other model ≤ 0.006, omnibus risk 0.0015. Neither Sym Top-2 model differs from Diff on a paired t-test of the
 per-subject AIC (hard: t(12) = 1.19, p = 0.26; soft: t(12) = −0.90, p = 0.39); every other model is worse,
