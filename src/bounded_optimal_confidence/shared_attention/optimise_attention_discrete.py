@@ -42,11 +42,9 @@ with the w grid step held at SWEEP_STEP sigmas. Every code is scored by its gap 
 bound, J_delta - J >= 0, where J_delta puts all belief on the best-explaining state at each (c, w).
 Outputs (results/shared_attention/optimise_attention_discrete_Bsweep_<prior>_n<n>_sig<sigma | lo-hi>_<time>/):
   sweep.csv     one row per (B, seed): the optimum, J and the gap of every code, fit and held-out
-  B_sweep.png   middle-state weights, their distance from 0.5, the gaps, and the share of the
-                no-attention gap each code closes, all against B / sigma
 
 From ITBR_confidence/generalisation/optimise_attention_discrete.py, unchanged but for the output directory and these
-run lines. The paper's sweep is results/paper_shared_attention/optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261012_150128
+run lines. The paper's sweep is results/paper_shared_attention/optimise_attention_discrete_Bsweep_recentred_n10000_sig64_20261025_150919
 (recentred prior, sigma 64, 10000 worlds, seeds 0 2 4 6 8, B 64 .. 2000); paper_plots/fig_pxgphi_vs_B.py draws from it.
 """
 import argparse
@@ -293,89 +291,6 @@ def local_slopes(summary):
         return np.diff(np.log(dev)) / np.diff(np.log(x))
 
 
-def plot_sweep(rows, summary, path):
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    scale = 1.0 if SIGMA_RANGE else SIGMA
-    x = np.array([s["x"] for s in summary])
-    fig, axes = plt.subplots(2, 2, figsize=(11.5, 8.2), sharex=True, facecolor=SURFACE)
-    for ax in axes.flat:
-        ax.set_facecolor(SURFACE)
-        ax.set_xscale("log")
-        ax.grid(True, color=GRID, lw=0.8)
-        ax.set_axisbelow(True)
-        for side in ("top", "right"):
-            ax.spines[side].set_visible(False)
-        for side in ("left", "bottom"):
-            ax.spines[side].set_color(GRID)
-        ax.tick_params(colors=MUTED, labelsize=8.5, which="both", length=0)
-    line = dict(lw=2, ms=6.5, mec=SURFACE, mew=1.5)
-
-    def title(ax, head, sub):
-        ax.set_title(head, loc="left", fontsize=10.5, color=INK, pad=20)
-        ax.text(0, 1.03, sub, transform=ax.transAxes, fontsize=8.5, color=MUTED)
-
-    def legend(ax, **kw):
-        ax.legend(fontsize=8.5, frameon=False, labelcolor=INK, **kw)
-
-    ax = axes[0, 0]
-    top = [r for r in rows if r["lm_mr"]]
-    for key, mean, col, mk, name in (("pi1_middle", "mid1", "phi1", "o", r"$\phi_1$ = {left, middle}"),
-                                     ("pi2_middle", "mid2", "phi2", "s", r"$\phi_2$ = {middle, right}")):
-        ax.scatter([r["B"] / scale for r in top], [r[key] for r in top], s=11, color=COLOURS[col],
-                   alpha=0.4, lw=0, zorder=2)
-        ax.plot(x, [s[mean] for s in summary], color=COLOURS[col], marker=mk, label=name, zorder=3, **line)
-    ax.axhline(0.5, color=MUTED, lw=1, ls="--", zorder=1)
-    ax.annotate("0.5", (x[0], 0.5), xytext=(0, 3), textcoords="offset points", fontsize=8.5, color=MUTED)
-    title(ax, "Weight on the middle state", "sparse optimum; dots are seeds, lines their mean")
-    legend(ax, loc="lower right")
-
-    ax = axes[0, 1]
-    pos = [s for s in summary if s["dev"] > 0]
-    ax.errorbar([s["x"] for s in pos], [s["dev"] for s in pos],
-                yerr=[np.nan_to_num(s["dev_se"]) for s in pos], color=INK, marker="o", capsize=3,
-                elinewidth=1, **line)
-    if pos:  # guide of slope -1 through the largest B, not a fit
-        xs = np.array([s["x"] for s in pos])
-        ax.plot(xs, pos[-1]["dev"] * xs[-1] / xs, color=MUTED, lw=1, ls="--", zorder=1)
-        ax.annotate(r"$\propto \sigma / B$", (xs[0], pos[-1]["dev"] * xs[-1] / xs[0]), xytext=(6, -2),
-                    textcoords="offset points", va="top", fontsize=9, color=MUTED)
-    ax.set_yscale("log")
-    title(ax, "Distance of the middle weight from 0.5",
-          r"0.5 $-$ mean of the two weights, $\pm$ s.e. over seeds; dashed: slope $-1$ through the last point")
-
-    ax = axes[1, 0]
-    for k, mk in (("none", "^"), ("ref", "D"), ("opt", "o"), ("second", "s")):
-        ax.plot(x, [s["gap"][k] for s in summary], color=COLOURS[k], marker=mk,
-                ls="--" if k == "none" else "-", label=CODES[k].split(" (")[0], **line)
-    ax.set_yscale("log")
-    title(ax, "Gap to the Dirac-delta bound", r"$J_\delta - J$ in nats, held-out worlds, mean over seeds")
-    legend(ax, loc="best")
-
-    ax = axes[1, 1]
-    for k, mk in (("ref", "D"), ("opt", "o")):
-        ax.errorbar(x, [100 * s["closed"][k] for s in summary],
-                    yerr=[100 * np.nan_to_num(s["closed_sd"][k]) for s in summary], color=COLOURS[k],
-                    marker=mk, capsize=3, elinewidth=1, label=CODES[k].split(" (")[0], **line)
-    ax.axhline(0, color=MUTED, lw=1, ls="--")
-    title(ax, "Share of the no-attention gap closed",
-          r"100 (1 $-$ gap / no-attention gap), held-out worlds, $\pm$ s.d. over seeds")
-    ax.set_ylabel("%", color=MUTED, fontsize=8.5)
-    legend(ax, loc="best")
-
-    ax.set_xticks(x)
-    ax.set_xticklabels([f"{s['B']:g}" if SIGMA_RANGE else f"{s['x']:.3g}\n({s['B']:g})" for s in summary])
-    ax.xaxis.set_minor_locator(matplotlib.ticker.NullLocator())
-    for ax in axes[1]:
-        ax.set_xlabel("B" if SIGMA_RANGE else "B / σ   (B in brackets)", color=MUTED, fontsize=9)
-    sig = f"σ ~ U({SIGMA_RANGE[0]:g}, {SIGMA_RANGE[1]:g})" if SIGMA_RANGE else f"σ = {SIGMA:g}"
-    fig.suptitle(f"{WORLD_PRIOR} world prior, {sig}, {N_WORLDS} worlds, {summary[0]['n']} seeds",
-                 x=0.01, ha="left", fontsize=11.5, color=INK)
-    fig.tight_layout(rect=(0, 0, 1, 0.97))
-    fig.savefig(path, dpi=150, facecolor=SURFACE)
-
-
 def run_sweep(args):
     cfg = dict(SIGMA=args.sigma, SIGMA_RANGE=args.sigma_range, N_WORLDS=args.n_worlds, N_T=args.n_t,
                WORLD_PRIOR=args.world_prior)
@@ -411,10 +326,6 @@ def run_sweep(args):
               f"{s['dev']:10.4f}{s['dev_se']:9.4f}{sl:8.2f}{s['dev'] * s['x']:9.3f}"
               + "".join(f"{s['gap'][k]:10.4f}" for k in CODES)
               + f"{100 * s['closed']['opt']:11.2f}%{100 * s['closed']['ref']:11.2f}%")
-    try:
-        plot_sweep(rows, summary, os.path.join(run_dir, "B_sweep.png"))
-    except ImportError:
-        pass
     print(f"\nsaved {run_dir}")
 
 
