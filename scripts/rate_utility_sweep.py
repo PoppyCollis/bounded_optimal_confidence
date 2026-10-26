@@ -6,7 +6,7 @@ solved bounded-optimal hierarchy, on every stimulus configuration, in the raw an
     python scripts/rate_utility_sweep.py --recheck <run dir>          # re-run the checks on a finished run
 
 Writes results/rate_utility/rateutil_<date>_<time>[_<tag>]/{config_log.txt, curves.csv}. The paper's own run is
-results/paper_rate_utility/rateutil_20260922_144534; paper_plots/fig_rate_cost_utility.py draws from it.
+results/paper_rate_utility/rateutil_20261025_141721; paper_plots/fig_rate_cost_utility.py draws from it.
 See docs/rate_utility.md.
 """
 from bounded_optimal_confidence.bounded_rational.rate_utility import main

@@ -1,7 +1,7 @@
 """Rate-utility and cost-utility on one config (default 1): 1-step RD, pinned top-2 hierarchy, solved BR hierarchy.
 
 Reads a finished rate-utility sweep (no solving): by default the paper's run,
-results/paper_rate_utility/rateutil_20260922_144534. Every curve is swept in its own
+results/paper_rate_utility/rateutil_20261025_141721. Every curve is swept in its own
 inverse temperature (beta for RD, beta3 for the hierarchies, beta1 = beta2 = inf). y = E[U] throughout, labelled
 "Accuracy".
 
@@ -35,7 +35,7 @@ from bounded_optimal_confidence.paths import PAPER_RATE_UTILITY_DIR
 from bounded_optimal_confidence.plotting.style import use_paper_style
 
 FIG_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "figures")
-DEFAULT_RUN = str(PAPER_RATE_UTILITY_DIR / "rateutil_20260922_144534")
+DEFAULT_RUN = str(PAPER_RATE_UTILITY_DIR / "rateutil_20261025_141721")
 
 # The shared paper_plots sizes of the original repo (bayes_1d_readouts: TICK 16, LABEL 19, LEGEND 15;
 # fig_likelihood_confidence: TITLE 24). Every text size is that size x TEXT_SCALE, so the ratios between them are kept.

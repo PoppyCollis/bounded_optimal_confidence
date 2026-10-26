@@ -1,4 +1,4 @@
-"""The stored sweep the paper's figure reads (results/paper_rate_utility/rateutil_20260922_144534), and how a
+"""The stored sweep the paper's figure reads (results/paper_rate_utility/rateutil_20261025_141721), and how a
 re-solved cell is compared with it."""
 import io
 
@@ -7,7 +7,7 @@ import pandas as pd
 
 from bounded_optimal_confidence.paths import PAPER_RATE_UTILITY_DIR
 
-PAPER_RUN_DIR = PAPER_RATE_UTILITY_DIR / "rateutil_20260922_144534"
+PAPER_RUN_DIR = PAPER_RATE_UTILITY_DIR / "rateutil_20261025_141721"
 KEY = ["world", "stimulus_config", "family", "beta3"]
 
 
