@@ -44,6 +44,18 @@ so they come back bit for bit only on the same numpy and scipy.
     results/paper_shared_attention/   the B sweep the p(x|phi) figure is drawn from (README: model, table, columns)
     results/fits/, results/rate_utility/, results/shared_attention/   new runs
 
+## Reproducing the paper's runs
+
+The three full runs, as re-run on 2026-10-25 (wall times on a 20-core machine in brackets):
+
+    python scripts/fit_all_models.py --n-workers 14                                   # the ten model fits (9.5 h)
+    python scripts/rate_utility_sweep.py --workers 14                                 # the rate-utility sweep (45 min)
+    python scripts/optimise_attention_discrete.py --world-prior recentred --sweep-B 64 125 250 500 1000 2000 --n-seeds 5 --n-workers 2
+                                                                                      # the shared-attention B sweep (52 min)
+
+`python scripts/compare_with_paper.py {fits,rate-utility,shared-attention}` compares a new run with the stored one
+column by column.
+
 ## The paper's fits
 
 Bayesian model selection over the ten (protected exceedance probability): Diff 0.47, Sym Top-2 (soft) 0.51, every
